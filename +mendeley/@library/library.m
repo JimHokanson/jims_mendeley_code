@@ -1,5 +1,7 @@
 classdef library < mendeley.handle_light
     %
+    %   Class:
+    %   mendeley.library
     %
     %   loadByUserName(user_name)
     %   loadByUserInstance(user_instance)
@@ -22,7 +24,7 @@ classdef library < mendeley.handle_light
 
     
     properties
-       pvt_service      %Class: mendeley.api.private_service
+       pvt_service      %mendeley.api.private_service
        
        id_version_map   %containers.Map
        %key  : id
@@ -40,18 +42,17 @@ classdef library < mendeley.handle_light
     end
     
     methods
-        function obj = library(user_name_or_obj)
+        function obj = library(user_index_or_obj)
            
-           if ischar(user_name_or_obj)
-              %?? - has this been implemented????
-              obj.user = mendeley.user_manager.getUser(user_name_or_obj); 
+           if isnumeric(user_index_or_obj)
+              obj.user = mendeley.user_manager.getUser(user_index_or_obj); 
            else
-              obj.user = user_name_or_obj;
+              obj.user = user_index_or_obj;
            end
             
            obj.pvt_service = obj.user.pvt_service;
            
-           obj.em = mendeley.library.entry_manager(obj.user);
+           obj.em = mendeley.library.entry_manager.getInstance(obj.user);
         end
     end
     

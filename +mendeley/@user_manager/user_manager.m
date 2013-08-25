@@ -8,7 +8,12 @@ classdef user_manager < sl.obj.handle_light
     %   addUser
     %   getUser
     
-    %allow alias and changing of names
+    %IMPROVEMENTS
+    %--------------------------------------------
+    %- allow aliasing and changing of names
+    %- For the getAppKey method, add instructions on how
+    %to get an app key, perhaps also add a link to click to launch
+    %a web browser
     
     properties (Constant,Hidden)
         VERSION = 1;
@@ -34,8 +39,7 @@ classdef user_manager < sl.obj.handle_light
         function obj = user_manager()
             obj.data_path = fullfile(mendeley.getClassSavePath(obj),'data.mat');
             obj.load();
-            
-            
+
             if isempty(obj.consumer_key)
                 obj.getAppKey();
             end
@@ -115,6 +119,8 @@ classdef user_manager < sl.obj.handle_light
            fprintf('getUser: pass in index of user to get user object\n')
         end
         function disp2(obj)
+           %Call to the builtin display method since it is overloaded
+           %with display of the users ...
            builtin('disp',obj) 
         end
         %         function refreshUserEmail()
@@ -154,6 +160,7 @@ classdef user_manager < sl.obj.handle_light
             
             p_oauth = getPrivateOauth(obj,access_token,secret);
             
+            %mendeley.api.private_service.profile_info
             r = p_oauth.profile_info();
             %Class: mendeley.api.pvt_response.profile_info
             
@@ -165,7 +172,7 @@ classdef user_manager < sl.obj.handle_light
             
             %I = strcmp(obj.user_ids,unique_id) ...
             
-            obj.user_name{end+1}      = r.name;
+            obj.user_names{end+1}     = r.name;
             obj.user_ids{end+1}       = r.getUniqueID;
             obj.access_tokens{end+1}  = access_token;
             obj.access_secrets{end+1} = secret;

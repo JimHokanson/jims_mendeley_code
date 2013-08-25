@@ -16,7 +16,6 @@ function sync(obj,varargin)
 %   FULL PATH:
 %   mendeley.library.raw_doc_manager.sync
 
-
 in.sync_global = false;
 in.display_mod = 50;
 in = sl.in.processVarargin(in,varargin);
@@ -33,6 +32,7 @@ end
 s = obj.em.resolveStatus(obj.doc_ids,obj.doc_versions);
 %mendeley.library.doc_id_status
 
+%NOTE: We request just the raw output, no processing
 m = mendeley.api.options;
 m.return_type = 'raw';
 
@@ -63,6 +63,7 @@ if n_new ~= 0
         if mod(iNew,in.display_mod) == 0
             fprintf('Retrieving %d/%d docs\n',iNew,n_new);
         end
+        %mendeley.api.private_service.doc_details
         temp_data{iNew} = obj.em.pvt_service.doc_details(new_ids{iNew},'options',m);
     end
     obj.doc_data     = [obj.doc_data temp_data];

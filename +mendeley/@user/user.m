@@ -1,8 +1,9 @@
 classdef user < sl.obj.handle_light
     %
-    %
     %   Class:
     %   mendeley.user
+    %
+    %   This should generally be instantiated from the user_manager.
     %
     %   What can the user do?
     %   ------------------------------------------------
@@ -16,8 +17,10 @@ classdef user < sl.obj.handle_light
     
     properties
        user_name        %char
-       profile_id       %char - I'm hoping this a unique identifier ...
-       private_creds    %oauth.creds.private
+       profile_id       %char - I'm hoping this a unique identifier. This
+       %comes from the profile_info function:
+       %
+       %    http://apidocs.mendeley.com/home/user-specific-methods/profile-information
        raw_doc_manager  %Class: mendeley.library.raw_doc_manager
     end
     

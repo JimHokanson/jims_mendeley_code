@@ -1,6 +1,5 @@
 classdef entry_manager < mendeley.library.singleton
     %
-    %
     %   Class: (Singleton) -> .getInstance(user) 
     %   mendeley.library.entry_manager
     %
@@ -39,7 +38,7 @@ classdef entry_manager < mendeley.library.singleton
            %
            %    TEST CODE:
            %    um = mendeley.user_manager.getInstance;
-           %    em = mendeley.library.entry_manager(um.getUser(1));
+           %    em = mendeley.library.entry_manager.getInstance(um.getUser(1));
            %
            obj.user        = user;
            obj.pvt_service = user.pvt_service;
@@ -84,7 +83,7 @@ classdef entry_manager < mendeley.library.singleton
            in = sl.in.processVarargin(in,varargin);
            
            if in.show_text
-               fprint('Syncing document ids with Mendeley server\n')
+               fprintf('Syncing document ids with Mendeley server\n')
            end
            
            temp = obj.pvt_service.doc_libraryAll; 
